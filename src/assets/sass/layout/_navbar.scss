@@ -1,0 +1,26 @@
+.navbar {
+  background-color: #fff;
+  padding: 3rem;
+  font-size: 2.5rem;
+  box-shadow: 0 2px 2rem rgba(0, 0, 0, 0.03);
+
+  &-nav {
+    list-style: none;
+    display: flex;
+  }
+
+  &-item {
+    &:not(:last-child) {
+      margin-right: 2rem;
+    }
+  }
+
+  &-link {
+    &,
+    &:link,
+    &:visited {
+      color: #8e44ad;
+      text-decoration: none;
+    }
+  }
+}

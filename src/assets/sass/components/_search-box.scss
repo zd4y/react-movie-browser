@@ -1,0 +1,19 @@
+.search-box {
+  margin: 5rem auto;
+  width: 30rem;
+}
+
+.search {
+  font-size: 1.5rem;
+  font-family: inherit;
+  border: 1px solid #ddd;
+  padding: 0.5rem 1rem;
+  border-radius: 3px;
+  width: 100%;
+
+  &-heading {
+    font-weight: 500;
+    color: #8e44ad;
+    margin-bottom: 0.5rem;
+  }
+}
