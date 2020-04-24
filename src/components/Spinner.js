@@ -1,8 +1,8 @@
 import React from 'react';
 
-export default function Spinner() {
+export default function Spinner(props) {
   return (
-    <div className="spinner-box">
+    <div {...props} className="spinner-box">
       <svg
         className="spinner"
         width="65px"

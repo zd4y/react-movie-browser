@@ -1,10 +1,13 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 const IMG_URL = 'https://image.tmdb.org/t/p/w500/';
 
-export default function Movie({ movie: { title, poster_path, release_date } }) {
+export default function Movie({
+  movie: { id, title, poster_path, release_date }
+}) {
   return (
-    <a href="/" className="movie">
+    <Link to={`/movie/${id}`} className="movie">
       <div className="movie-img-box">
         <img
           alt={`${title} Poster`}
@@ -16,6 +19,6 @@ export default function Movie({ movie: { title, poster_path, release_date } }) {
         {title}
       </p>
       <p className="movie-date">{release_date}</p>
-    </a>
+    </Link>
   );
 }

@@ -17,9 +17,7 @@ function App() {
         <main className="main">
           <Switch>
             <Route exact path="/" component={MovieList} />
-            <Route path="/search">
-              <MovieBrowser />
-            </Route>
+            <Route path="/search" component={MovieBrowser} />
             {/* <Route path="/movie/:movieId" component={MovieDetails} /> */}
             <Redirect exact from="/" to="/search" />
             <Redirect exact from="/movie" to="/search" />

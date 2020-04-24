@@ -5,12 +5,12 @@ function api(endpoint) {
   return `https://api.themoviedb.org/3/${endpoint}/movie?api_key=bbebf5b6e5e3d0e032c9d39235abb724`;
 }
 
-const API = api('discover');
+const API =
+  'https://api.themoviedb.org/3/movie/popular?api_key=bbebf5b6e5e3d0e032c9d39235abb724';
 
 const SEARCH = api('search');
-// ('https://api.themoviedb.org/3/search/movie?api_key=bbebf5b6e5e3d0e032c9d39235abb724&query=asfasf&page=1');
 
-export default function useMovieSearch(query, page) {
+export default function useMovieSearch(query, page, search) {
   const [movies, setMovies] = useState([]);
   const [error, setError] = useState(false);
   const [loading, setLoading] = useState(true);
@@ -20,25 +20,30 @@ export default function useMovieSearch(query, page) {
 
   useEffect(() => {
     setLoading(true);
+    setError(false);
+    let cancel = () => {};
     async function fetchMovies() {
-      let res;
       try {
-        const params = { page };
-        if (query) params.query = query;
-        res = await axios.get(query ? SEARCH : API, {
-          params: params
+        if (search && !query) return setLoading(false);
+        const { data } = await axios.get(query ? SEARCH : API, {
+          params: { page, query },
+          cancelToken: new axios.CancelToken(c => (cancel = c))
         });
-        setMovies(oldMovies => {
-          return [...oldMovies, ...res.data.results];
-        });
-        if (page === res.data.total_pages) setHasMore(false);
+        setMovies(oldMovies => [...oldMovies, ...data.results]);
+        setHasMore(page !== data.total_pages);
+        if (data.results.length === 0) throw new Error('No results found');
         setLoading(false);
-      } catch {
-        setError(true);
+      } catch (err) {
+        if (axios.isCancel(err)) setLoading(true);
+        else {
+          setLoading(false);
+          setError(err);
+        }
       }
     }
     fetchMovies();
-  }, [query, page]);
+    return () => cancel();
+  }, [query, page, search]);
 
   return { movies, error, loading, hasMore };
 }

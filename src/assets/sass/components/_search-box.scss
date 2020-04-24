@@ -1,6 +1,9 @@
 .search-box {
-  margin: 5rem auto;
+  margin: 10rem auto 0 auto;
   width: 30rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .search {
@@ -14,6 +17,6 @@
   &-heading {
     font-weight: 500;
     color: #8e44ad;
-    margin-bottom: 0.5rem;
+    margin-bottom: 1rem;
   }
 }
