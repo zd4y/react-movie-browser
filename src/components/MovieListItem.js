@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { ReactComponent as DefaultImg } from '../assets/icons/video.svg';
 
-const IMG_URL = 'https://image.tmdb.org/t/p/w500/';
+const IMG_URL = 'https://image.tmdb.org/t/p/w500';
 
 export default function MovieListItem({
   movie: { id, title, poster_path, release_date }
