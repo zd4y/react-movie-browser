@@ -21,7 +21,9 @@ export default function useMovieSearch(query, page, search) {
   useEffect(() => {
     setLoading(true);
     setError(false);
+
     let cancel = () => {};
+
     async function fetchMovies() {
       try {
         if (search && !query) return setLoading(false);
@@ -29,8 +31,10 @@ export default function useMovieSearch(query, page, search) {
           params: { page, query },
           cancelToken: new axios.CancelToken(c => (cancel = c))
         });
+
         setMovies(oldMovies => [...oldMovies, ...data.results]);
         setHasMore(page !== data.total_pages);
+
         if (data.results.length === 0) throw new Error('No results found');
         setLoading(false);
       } catch (err) {
@@ -41,7 +45,9 @@ export default function useMovieSearch(query, page, search) {
         }
       }
     }
+
     fetchMovies();
+
     return () => cancel();
   }, [query, page, search]);
 

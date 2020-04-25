@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { NavLink } from 'react-router-dom';
 
 export default function Navbar() {
   return (
@@ -15,9 +15,14 @@ export default function Navbar() {
 function NavbarItem({ to, children }) {
   return (
     <li className="navbar-item">
-      <Link to={to} className="navbar-link">
+      <NavLink
+        exact
+        to={to}
+        className="navbar-link"
+        activeClassName="navbar-link--active"
+      >
         {children}
-      </Link>
+      </NavLink>
     </li>
   );
 }

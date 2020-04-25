@@ -1,7 +1,7 @@
 import React, { useState, useRef, useCallback, useEffect } from 'react';
 import useMovieSearch from '../hooks/useMovieSearch';
 
-import Movie from './Movie';
+import { MovieListItem } from './';
 import Spinner from './Spinner';
 
 export default function MovieList({ query, search }) {
@@ -36,12 +36,12 @@ export default function MovieList({ query, search }) {
           movies &&
           movies.map((movie, index) => (
             <li
-              {...(index === movies.length - 1 && {
-                ref: lastMovieElementRef
-              })}
+              ref={
+                index === movies.length - 1 ? lastMovieElementRef : undefined
+              }
               key={movie.id}
             >
-              <Movie movie={movie} />
+              <MovieListItem movie={movie} />
             </li>
           ))}
       </ul>

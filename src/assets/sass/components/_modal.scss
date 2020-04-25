@@ -1,0 +1,58 @@
+.modal {
+  --animation: 300ms ease 100ms;
+  position: fixed;
+  width: 100%;
+  height: 100%;
+  background-color: #fff;
+  z-index: 1000000;
+  animation: modal-enter var(--animation);
+  animation-fill-mode: both;
+  cursor: pointer;
+
+  & > * {
+    --padding: 5rem;
+    cursor: auto;
+    overflow-y: auto;
+    max-height: 80%;
+    position: absolute;
+    padding: var(--padding);
+    top: 50%;
+    left: 50%;
+    background-color: #fff;
+    transform: translate(-50%, -50%) scale(0);
+    border-radius: var(--border-radius);
+    min-width: 50%;
+    animation: fade-in var(--animation);
+    animation-fill-mode: forwards;
+  }
+
+  &-close {
+    cursor: pointer;
+    fill: var(--color-primary);
+    position: fixed;
+    right: var(--padding);
+    top: var(--padding);
+    display: block;
+    width: 2rem;
+    height: 2rem;
+  }
+}
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+}
+
+@keyframes modal-enter {
+  from {
+    background-color: transparent;
+  }
+  to {
+    background-color: rgba(#000, 0.3);
+  }
+}

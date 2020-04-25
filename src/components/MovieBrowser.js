@@ -1,15 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import MovieList from './MovieList';
+import { MovieList } from './';
 
-import { useHistory, useLocation } from 'react-router-dom';
-
-function useQuery() {
-  return new URLSearchParams(useLocation().search);
+function useQuery(location) {
+  return new URLSearchParams(location.search);
 }
 
-export default function MovieBrowser() {
-  const history = useHistory();
-  const params = useQuery();
+export default function MovieBrowser({ history, location }) {
+  const params = useQuery(location);
   const [query, setQuery] = useState('');
 
   function fetchMovies(e) {
