@@ -24,6 +24,17 @@
     min-width: 50%;
     animation: fade-in var(--animation);
     animation-fill-mode: forwards;
+    max-width: 120rem;
+
+    @media screen and (max-width: 81.25em) {
+      min-width: 100%;
+      min-height: 100%;
+      border-radius: 0;
+    }
+  }
+
+  .movie-details-info {
+    background-color: var(--color-background);
   }
 
   &-close {
@@ -35,6 +46,10 @@
     display: block;
     width: 2rem;
     height: 2rem;
+
+    @media screen and (max-width: 37.5em) {
+      --padding: 2rem;
+    }
   }
 }
 

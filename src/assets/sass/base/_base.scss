@@ -12,6 +12,7 @@
   --text-color: #111;
   --color-gray: #777;
   --color-primary: #236ddb;
+  --color-background: #edf1f5;
 }
 
 html {
@@ -23,8 +24,12 @@ body {
   color: var(--text-color);
   font-size: 1.6rem;
   font-family: 'Montserrat', sans-serif;
-  background-color: #edf1f5;
+  background-color: var(--color-background);
   overflow-y: scroll;
+
+  &.modal-open {
+    overflow-y: hidden;
+  }
 }
 
 #root {

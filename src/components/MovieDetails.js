@@ -106,7 +106,7 @@ export default function MovieDetails({ history, location, match }) {
               <p className="movie-details-genres">
                 <strong className="movie-details-info-heading">Genres:</strong>
                 <span className="movie-details-info-value">
-                  {data.genres.map(g => g.name).join(',')}
+                  {data.genres.map(g => g.name).join(', ')}
                 </span>
               </p>
               <MovieDetail

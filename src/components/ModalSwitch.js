@@ -6,6 +6,10 @@ export default function ModalSwitch() {
   const location = useLocation();
   const background = location.state && location.state.background;
 
+  background
+    ? document.body.classList.add('modal-open')
+    : document.body.classList.remove('modal-open');
+
   return (
     <>
       <Navbar />
