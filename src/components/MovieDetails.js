@@ -88,7 +88,11 @@ export default function MovieDetails({ history, location, match }) {
               />
             </div>
             <div className="movie-details-main">
-              <h1 className="movie-details-title">{data.title}</h1>
+              <h1 className="movie-details-title">
+                <a className="movie-details-link" href={data.homepage}>
+                  {data.title}
+                </a>
+              </h1>
               <p className="movie-details-tagline">{data.tagline}</p>
               <p className="movie-details-overview">{data.overview}</p>
             </div>
@@ -103,14 +107,6 @@ export default function MovieDetails({ history, location, match }) {
                 <strong className="movie-details-info-heading">Genres:</strong>
                 <span className="movie-details-info-value">
                   {data.genres.map(g => g.name).join(',')}
-                </span>
-              </p>
-              <p className="movie-details-homepage">
-                <strong className="movie-details-info-heading">
-                  Homepage:
-                </strong>
-                <span className="movie-details-info-value">
-                  <a href={data.homepage}>{data.homepage}</a>
                 </span>
               </p>
               <MovieDetail
