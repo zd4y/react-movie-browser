@@ -16,8 +16,8 @@ export default function ModalSwitch() {
       <main className="main">
         <Switch location={background || location}>
           <Route exact path="/" component={MovieList} />
-          <Route path="/movie/:id" component={MovieDetails} />
           <Route path="/search" component={MovieBrowser} />
+          <Route path="/movie/:id" component={MovieDetails} />
           <Redirect exact from="/movie" to="/search" />
           <Route>Not found</Route>
         </Switch>
