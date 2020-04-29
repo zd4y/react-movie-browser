@@ -1,46 +1,43 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect } from 'react';
 import { MovieList } from './';
-import useDebounce from '../hooks/useDebounce';
+import { useDebouncedCallback } from 'use-debounce';
 import useQuery from '../hooks/useQuery';
 
 export default function MovieBrowser({ history }) {
   const [query, setQuery] = useState('');
   const [searchTerm, setSearchTerm] = useState('');
-  const [cancelDebounce, setCancelDebounce] = useState(false);
   const queryParam = useQuery().get('q');
 
-  const debouncedSearchTerm = useDebounce(searchTerm, 1000, cancelDebounce);
+  function fetchData(value) {
+    setQuery(value);
+    if (value) {
+      history.push(`/search${value && `?q=${value}`}`);
+    }
+  }
 
-  const fetchData = useCallback(
-    value => {
-      setQuery(value);
-      if (value) {
-        console.log('pushing');
-        history.push(`/search${value && `?q=${value}`}`);
-      }
-    },
-    [history]
+  const [debouncedFunction, cancelDebounce] = useDebouncedCallback(
+    fetchData,
+    1000
   );
 
-  useEffect(() => fetchData(debouncedSearchTerm), [
-    debouncedSearchTerm,
-    fetchData
-  ]);
+  function handleChange(e) {
+    const value = e.target.value;
+    setSearchTerm(value);
+    debouncedFunction(value);
+  }
 
   useEffect(() => {
-    setCancelDebounce(true);
+    cancelDebounce();
     const q = queryParam || '';
     setSearchTerm(q);
     setQuery(q);
-  }, [queryParam]);
+  }, [queryParam, cancelDebounce]);
 
   function handleSubmit(e) {
     e.preventDefault();
-    setCancelDebounce(true);
+    cancelDebounce();
     fetchData(e.target[0].value);
   }
-
-  useEffect(() => setCancelDebounce(false), [searchTerm]);
 
   return (
     <>
@@ -49,7 +46,7 @@ export default function MovieBrowser({ history }) {
         <input
           name="q"
           value={searchTerm}
-          onChange={e => setSearchTerm(e.target.value)}
+          onChange={handleChange}
           type="text"
           className="search"
           placeholder="Enter the name of a movie to search for it"
