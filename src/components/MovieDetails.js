@@ -3,6 +3,7 @@ import axios from 'axios';
 import { ReactComponent as CloseIcon } from '../assets/icons/mark.svg';
 // import { ReactComponent as StarIcon } from '../assets/icons/star.svg';
 import Spinner from './Spinner';
+import Error from './Error';
 
 const API_URL = `${process.env.REACT_APP_API_URL}/movie/{movie_id}?api_key=${process.env.REACT_APP_API_KEY}`;
 
@@ -82,12 +83,7 @@ export default function MovieDetails({ history, location, match }) {
           <CloseIcon className="modal-close" onClick={handleClick} />
         )}
         {loading && <Spinner className="modal-loading" />}
-        {error && (
-          <div className="error">
-            <h3 className="error-heading">Sorry, an error occurred</h3>
-            <p className="error-text">{error.message}</p>
-          </div>
-        )}
+        {error && <Error message={error.message} />}
         {data && (
           <div className="movie-details">
             <div className="movie-details-img-box">

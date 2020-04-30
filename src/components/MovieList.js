@@ -1,7 +1,7 @@
 import React, { useState, useRef, useCallback, useEffect } from 'react';
 import useMovieSearch from '../hooks/useMovieSearch';
 
-import { MovieListItem } from './';
+import { MovieListItem, Error } from './';
 import Spinner from './Spinner';
 
 export default function MovieList({ query, search }) {
@@ -46,12 +46,7 @@ export default function MovieList({ query, search }) {
           ))}
       </ul>
       {loading && <Spinner style={{ margin: '20rem auto' }} />}
-      {error && (
-        <div className="error">
-          <h3 className="error-heading">Sorry, an error occurred</h3>
-          <p className="error-text">{error.message}</p>
-        </div>
-      )}
+      {error && <Error message={error.message} />}
     </>
   );
 }
