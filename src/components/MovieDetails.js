@@ -9,6 +9,7 @@ const API_URL = `${process.env.REACT_APP_API_URL}/movie/{movie_id}?api_key=${pro
 export default function MovieDetails({ history, location, match }) {
   const [data, setData] = useState();
   const [loading, setLoading] = useState(true);
+  const [error, setError] = useState('');
 
   const { state = {} } = location;
   const { background } = state;
@@ -28,8 +29,12 @@ export default function MovieDetails({ history, location, match }) {
   useEffect(() => {
     setLoading(true);
     async function fetchData() {
-      const res = await axios.get(API_URL.replace('{movie_id}', id));
-      setData(res.data);
+      try {
+        const res = await axios.get(API_URL.replace('{movie_id}', id));
+        setData(res.data);
+      } catch (err) {
+        setError(err);
+      }
       setLoading(false);
     }
     fetchData();
@@ -77,6 +82,12 @@ export default function MovieDetails({ history, location, match }) {
           <CloseIcon className="modal-close" onClick={handleClick} />
         )}
         {loading && <Spinner className="modal-loading" />}
+        {error && (
+          <div className="error">
+            <h3 className="error-heading">Sorry, an error occurred</h3>
+            <p className="error-text">{error.message}</p>
+          </div>
+        )}
         {data && (
           <div className="movie-details">
             <div className="movie-details-img-box">
