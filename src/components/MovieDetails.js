@@ -4,8 +4,7 @@ import { ReactComponent as CloseIcon } from '../assets/icons/mark.svg';
 // import { ReactComponent as StarIcon } from '../assets/icons/star.svg';
 import Spinner from './Spinner';
 
-const API = `https://api.themoviedb.org/3/movie/{movie_id}?api_key=bbebf5b6e5e3d0e032c9d39235abb724`;
-const IMG_URL = 'https://image.tmdb.org/t/p/w500/';
+const API_URL = `${process.env.REACT_APP_API_URL}/movie/{movie_id}?api_key=${process.env.REACT_APP_API_KEY}`;
 
 export default function MovieDetails({ history, location, match }) {
   const [data, setData] = useState();
@@ -29,7 +28,7 @@ export default function MovieDetails({ history, location, match }) {
   useEffect(() => {
     setLoading(true);
     async function fetchData() {
-      const res = await axios.get(API.replace('{movie_id}', id));
+      const res = await axios.get(API_URL.replace('{movie_id}', id));
       setData(res.data);
       setLoading(false);
     }
@@ -83,7 +82,7 @@ export default function MovieDetails({ history, location, match }) {
             <div className="movie-details-img-box">
               <img
                 className="movie-details-img"
-                src={`${IMG_URL}${data.poster_path}`}
+                src={`${process.env.REACT_APP_IMG_URL}${data.poster_path}`}
                 alt={`${data.title} Poster`}
               />
             </div>

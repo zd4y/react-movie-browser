@@ -1,14 +1,9 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 
-function api(endpoint) {
-  return `https://api.themoviedb.org/3/${endpoint}/movie?api_key=bbebf5b6e5e3d0e032c9d39235abb724`;
-}
-
-const API =
-  'https://api.themoviedb.org/3/movie/popular?api_key=bbebf5b6e5e3d0e032c9d39235abb724';
-
-const SEARCH = api('search');
+const API_ENV = process.env.REACT_APP_API_URL;
+const API_URL = `${API_ENV}/movie/popular`;
+const API_SEARCH = `${API_ENV}/search/movie`;
 
 export default function useMovieSearch(query, page, search) {
   const [movies, setMovies] = useState([]);
@@ -27,8 +22,8 @@ export default function useMovieSearch(query, page, search) {
     async function fetchMovies() {
       try {
         if (search && !query) return setLoading(false);
-        const { data } = await axios.get(query ? SEARCH : API, {
-          params: { page, query },
+        const { data } = await axios.get(query ? API_SEARCH : API_URL, {
+          params: { page, query, api_key: process.env.REACT_APP_API_KEY },
           cancelToken: new axios.CancelToken(c => (cancel = c))
         });
 
