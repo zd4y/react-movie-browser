@@ -78,7 +78,7 @@ export default function MovieDetails({ history, location, match }) {
       className={background && 'modal'}
       onClickCapture={background && handleModalClick}
     >
-      <div>
+      <div className={background && 'modal-content'}>
         {background && (
           <CloseIcon className="modal-close" onClick={handleClick} />
         )}
