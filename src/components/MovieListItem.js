@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link, useLocation } from 'react-router-dom';
 import { ReactComponent as DefaultImg } from '../assets/icons/video.svg';
 
@@ -6,7 +6,6 @@ export default function MovieListItem({
   movie: { id, title, poster_path, release_date }
 }) {
   let location = useLocation();
-  const [imgError, setImgError] = useState();
 
   return (
     <Link
@@ -17,15 +16,14 @@ export default function MovieListItem({
       className="movie"
     >
       <div className="movie-img-box">
-        {imgError ? (
-          <DefaultImg className="movie-img broken-img" />
-        ) : (
+        {poster_path ? (
           <img
-            onError={() => setImgError(true)}
             alt={`${title} Poster`}
             className="movie-img"
             src={`${process.env.REACT_APP_IMG_URL}${poster_path}`}
           />
+        ) : (
+          <DefaultImg className="movie-img broken-img" />
         )}
       </div>
       <p className="movie-title" title={title}>
